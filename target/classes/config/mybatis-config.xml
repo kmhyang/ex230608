@@ -14,4 +14,7 @@
 		<package name="com.yedam.app" />
 	</typeAliases>
 
+<typeHandlers>
+	<typeHandler javaType="java.sql.Date" handler="org.apache.ibatis.type.DateTypeHandler"/>
+</typeHandlers>
 </configuration>
