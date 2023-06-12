@@ -26,7 +26,7 @@
 	</security:http>
 	
 	<security:authentication-manager>
-		<security:authentication-provider>
+		<security:authentication-provider> <!-- 다른방식으로 인증 받으려면 건드려야 함. // 그거 아니면 사용X-->
 			<security:user-service>
 				<security:user name="user" password="{noop}1234" authorities="ROLE_USER"/> <!-- test할 때만 사용 / 암호화되지 않았다는 뜻 -->
 				<security:user name="admin" password="{noop}1234" authorities="ROLE_ADMIN"/> <!-- test할 때만 사용 / 암호화되지 않았다는 뜻 -->
