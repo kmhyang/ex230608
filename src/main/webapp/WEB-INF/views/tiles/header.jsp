@@ -89,8 +89,9 @@
   <div class="container">
     <header class="d-flex justify-content-center py-3">
       <ul class="nav nav-pills">
-        <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-        <li class="nav-item"><a href="boardInsert" class="nav-link">게시판 등록</a></li>
+        <li class="nav-item"><a href="${pageContext.request.contextPath}" class="nav-link active" aria-current="page">home</a></li>
+        <li class="nav-item"><a href="${pageContext.request.contextPath}/boardList" class="nav-link" aria-current="page">게시판 조회</a></li>
+        <li class="nav-item"><a href="${pageContext.request.contextPath}/boardInsert" class="nav-link">게시글 등록</a></li>
       </ul>
     </header>
   </div>

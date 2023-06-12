@@ -2,21 +2,28 @@ package com.yedam.app;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.yedam.app.board.service.BoardService;
+import com.yedam.app.board.service.BoardVO;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class HomeController {
-	
+	@Autowired
+	BoardService boardService;
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	/**
@@ -35,5 +42,11 @@ public class HomeController {
 		
 		return "home";
 	}
+//	@GetMapping("boardList")
+//	public String boardList(Model model) {
+//		List<BoardVO> list = boardService.getBoardList();
+//		model.addAttribute("boardList",list);
+//		return "board/boardList";
+//	}
 	
 }

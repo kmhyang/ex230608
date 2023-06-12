@@ -8,6 +8,12 @@
 <head>
 <meta charset="UTF-8">
 <title>게시판 목록</title>
+<style>
+table, th, td{
+	border : 1px solid black;
+  border-collapse : collapse;
+}
+</style>
 </head>
 <body>
 	<table>
@@ -25,11 +31,10 @@
 					<td>${board.bno}</td>
 					<td>${board.title }</td>
 					<td>${board.writer }</td>
-					<td><td><fmt:formatDate value="${board.regdate}" pattern="yy-MM-dd"/></td>
+					<td><fmt:formatDate value="${board.regdate}" pattern="yyyy년 MM월 dd일"/></td> <!-- type="date" -->
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
-
 </body>
 </html>

@@ -14,10 +14,15 @@
 	</definition> -->
 
  <definition name="home" extends="mainTemplate">
+		<put-attribute name="content" value="/WEB-INF/views/home.jsp"/>
+	</definition>
+	
+ <definition name="board" extends="mainTemplate">
 		<put-attribute name="content" value="/WEB-INF/views/board/boardList.jsp"/>
 	</definition>
 
 	<definition name="*/*" extends="mainTemplate"><!-- 제일 마지막 순서에 둬야 함. -->
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"/>
 	</definition>
+	
 </tiles-definitions>

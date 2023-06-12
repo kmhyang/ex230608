@@ -21,7 +21,7 @@
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td><textarea name="contents" cols="2" rows="3"></textarea></td>
+					<td><textarea name="contents" cols="20" rows="3"></textarea></td>
 				</tr>
 				<tr>
 					<th>첨부파일</th>
@@ -32,5 +32,34 @@
 			<button type="button" onclick="location.href='boardList'">목록</button>
 		</div>
 	</form>
+	<script>
+		
+		document.querySelector("[name='insertForm']").addEventListener('submit',function(e){
+			e.preventDefault(); // 기존에 default로 등록된  submit 동작을 막음.
+			//getElementsByName : 배열이라서 인덱스 지정해줘야 됨.
+			let title = document.getElementsByName('title')[0];
+			let writer = document.getElementsByName('writer')[0];
+			let contents = document.getElementsByName('contents')[0];
+
+			if(title.value == ''){
+				alert('제목 입력하세요 ');
+				title.focus();
+				return;
+			}
+			if(contents.value == ''){
+				alert('내용 입력하세요 ');
+				contents.focus();
+				return;
+			}
+			if(writer.value == ''){
+				alert('작성자 입력하세요 ');
+				writer.focus();
+				return;
+			}
+
+			insertForm.submit();
+		})
+
+	</script>
 </body>
 </html>

@@ -17,6 +17,4 @@ public class BoardVO {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date updatedate;
 	private String image;
-	
-	
 }
