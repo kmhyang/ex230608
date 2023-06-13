@@ -7,6 +7,7 @@
 		
 		<!-- http : 경로에 대해서 인증, 인가 설정 -->
 		<!-- 1) 아래 경로는 security 적용하지 않음 ( 정적인 파일은 경로 적용X )  -->
+		<!--		ex) css, main 등  -->
   <security:http pattern="/css/**" security="none"/>
   
 		<!-- 2) 경로 패턴으로 인증, 인가 받아야 하는지 확인함. -->
@@ -16,21 +17,34 @@
 		<!-- access : 인증, 인가 조건-->
 		
 	<security:http>
-		<security:intercept-url pattern="/top.jsp" access="permitAll()"/><!-- 모든 사용자 접근 가능 -->
-		<security:intercept-url pattern="/admin/**" access="hasAuthority('ROLE_ADMIN')"/><!-- 해당경로로 접근한 user 인증 -> 권한 : ROLE_ADMIN 있는지 확인 -->
-		<security:intercept-url pattern="/**" access="isAuthenticated()"/> <!-- 인증만 되면 접근 가능 // 인가 상관없음 : user.jsp 페이지--> <!-- /** 제일 마지막 순서-->
+		<security:intercept-url pattern="/top.jsp" access="permitAll()"/><!-- 모든 사용자 접근 가능 / 인증 X-->
+<!-- 		<security:intercept-url pattern="/admin/**" access="hasAuthority('ROLE_ADMIN')"/>해당경로로 접근한 user 인증 -> 권한 : ROLE_ADMIN 있는지 확인(ADMIN, USER로 사용해도 됨 -->
+		<security:intercept-url pattern="/**" access="isAuthenticated()"/> <!-- 인증만 되면 접근 가능 // 인가 상관없음 : user.jsp 페이지--> <!-- /** 제일 마지막 순서 (기타 페이지)-->
 		<security:form-login default-target-url="/top.jsp"/> <!-- form 태그로 로그인 하면 security가 낚아챔. // 인증하는 페이지로 이동시킴. -->
 																													<!-- security에 내장되어 있는 것으로 인증, 인가 확인???? -->
 		<security:logout logout-url="/logout" logout-success-url="/top.jsp"/>
-		<security:csrf disabled="true"/>
+		<!-- <security:csrf disabled="true"/> -->
+		<!-- security가 작동하면 반드시 동작해야 하는 애 / cors??와 비슷 -->
+		<!-- 내가 만든 사이트가 맞는지 확인하는 토큰 / 내가 만든 페이지O -> 토큰 반환, 아니면 차단-->
+		<!-- 기능 구현이 중반 이상 되면 false로 변환해야 됨. -->
 	</security:http>
 	
+	<bean id="UserDetailsService" class="com.yedam.app.user.service.CustomerUserDetailsService" />
+	
 	<security:authentication-manager>
-		<security:authentication-provider> <!-- 다른방식으로 인증 받으려면 건드려야 함. // 그거 아니면 사용X-->
-			<security:user-service>
-				<security:user name="user" password="{noop}1234" authorities="ROLE_USER"/> <!-- test할 때만 사용 / 암호화되지 않았다는 뜻 -->
-				<security:user name="admin" password="{noop}1234" authorities="ROLE_ADMIN"/> <!-- test할 때만 사용 / 암호화되지 않았다는 뜻 -->
-			</security:user-service>
+		<security:authentication-provider user-service-ref="UserDetailsService"> <!-- 다른방식으로 인증 받으려면 건드려야 함. // 그거 아니면 사용X-->
+			<!-- database-context.xml : id=""dataSource"를  -->
+		<!-- 	<security:jdbc-user-service data-source-ref="dataSource"
+          users-by-username-query="SELECT login_id, '{noop}'||password, 1
+																	 FROM t_user
+																	 WHERE login_id = ?"
+					authorities-by-username-query="SELECT login_id, role_name
+																				 FROM 	t_user JOIN t_user_role
+																				 ON			t_user.id = t_user_role.user_id
+																				 JOIN		t_role
+																				 ON			t_user_role.role_id = t_role.id
+																				 WHERE 	login_id = ?"
+			/> -->
 		</security:authentication-provider>
 	</security:authentication-manager>
 
